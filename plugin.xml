@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+            id="net.ninjaenterprises.nuance" version="0.1.0">
+        <name>Device</name>
+        <description>Cordova Dialer Plugin</description>
+        <license>Apache 2.0</license>
+        <keywords>cordova,dialer</keywords>
+        <js-module src="www/dialer.js" name="DialerPlugin">
+            <clobbers target="DialerPlugin" />
+        </js-module>
+         <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="DialerPlugin" >
+                <param name="android-package" value="net.ninjaenterprises.DialerPlugin"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/Dialer.java" target-dir="src/net/ninjaenterprises/dialer" />
+    </platform>
+
+    </plugin>
