@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
             id="net.ninjaenterprises.dialer" version="0.1.0">
-        <name>Device</name>
+        <name>Dialer</name>
         <description>Cordova Dialer Plugin</description>
         <license>Apache 2.0</license>
         <keywords>cordova,dialer</keywords>
@@ -14,7 +14,7 @@
                 <param name="android-package" value="net.ninjaenterprises.DialerPlugin"/>
             </feature>
         </config-file>
-        <source-file src="src/android/Dialer.java" target-dir="src/net/ninjaenterprises/dialer" />
+        <source-file src="src/android/DialerPlugin.java" target-dir="src/net/ninjaenterprises/dialer" />
     </platform>
 
     </plugin>
