@@ -1,5 +1,14 @@
 
-package net.ninjaenterprises.nuance;
+package net.ninjaenterprises.dialer;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Intent;
+import android.net.Uri;
+import android.content.ActivityNotFoundException;
+import android.util.Log;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -7,20 +16,18 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import net.ninjaenterprises.nuance.Credentials;
+
 
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.nuance.nmdp.speechkit.*;
-
 /**
- * Sample PhoneGap plugin to call Nuance Speech Kit
- * @author asmyth
+ * Sample PhoneGap plugin to call Dialer app
+ * @author chale
  *
  */
-public class NuancePlugin extends CordovaPlugin{
+public class DialerPlugin extends CordovaPlugin{
     
 	/**
 	 * Action to initialize speech kit
@@ -386,11 +393,13 @@ public class NuancePlugin extends CordovaPlugin{
 	 * @return
 	 * @throws JSONException
 	 */
-	private PluginResult startRecognition(JSONArray data, CallbackContext callbackContext) throws JSONException{
+	private PluginResult dialNumber(JSONArray data, CallbackContext callbackContext) throws JSONException{
 		
 		Log.d("NuancePlugin", "NuancePlugin.startRecognition: Entered method.");
 		PluginResult result = null;
+		String recognitionType = data.getString(0);
 		
+		/*
 		JSONObject returnObject = new JSONObject();
 		if (recoListener != null){
 			Log.d("NuancePlugin", "NuancePlugin.execute: LISTENER IS NOT NULL");
@@ -427,7 +436,25 @@ public class NuancePlugin extends CordovaPlugin{
 			Log.e("NuancePlugin", "NuancePlugin.execute: Speech kit was null, initialize not called.");
 			setReturnCode(returnObject, RC_NOT_INITIALIZED, "Reco Start Failure: Speech Kit not initialized.");
 		}
-        
+        */
+         try {
+		       // callIntent.setData(Uri.parse("tel:+19195740046,,123456#,,,,,1"));
+		        String phonenumber = "19195740046,,123456#,,,,,1"; // , = pauses
+		       String encodedPhonenumber="";
+			try {
+				encodedPhonenumber = URLEncoder.encode(phonenumber, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + encodedPhonenumber)));
+		        
+		     
+		  //      startActivity(callIntent);
+		    } catch (ActivityNotFoundException e) {
+		        Log.e("helloandroid dialing example", "Call failed", e);
+		    }
+
 		result = new PluginResult(PluginResult.Status.OK, returnObject);
 		result.setKeepCallback(true);
 		Log.d("NuancePlugin", "NuancePlugin.startRecognition: Leaving method.");
@@ -435,38 +462,6 @@ public class NuancePlugin extends CordovaPlugin{
 		
 	} // end startRecogition
 	
-	/**
-	 * Stops recognition.
-	 *
-	 * @param data
-	 * @param callbackId
-	 * @return
-	 * @throws JSONException
-	 */
-	private PluginResult stopRecognition(JSONArray data, CallbackContext callbackContext) throws JSONException{
-		
-		Log.d("NuancePlugin", "NuancePlugin.stopRecognition: Entered method.");
-		PluginResult result = null;
-		JSONObject returnObject = new JSONObject();
-        
-		if (currentRecognizer != null){
-			// stop the recognizer
-			currentRecognizer.stopRecording();
-			Log.d("NuancePlugin", "NuancePlugin.execute: Recognition started.");
-			setReturnCode(returnObject, RC_SUCCESS, "Reco Stop Success");
-			returnObject.put("event", EVENT_RECO_STOPPED);
-            
-		}
-		else{
-			Log.e("NuancePlugin", "NuancePlugin.execute: Recognizer was null, start not called.");
-			setReturnCode(returnObject, RC_RECO_NOT_STARTED, "Reco Stop Failure: Recognizer not started.");
-		}
-        
-		result = new PluginResult(PluginResult.Status.OK, returnObject);
-		Log.d("NuancePlugin", "NuancePlugin.stopRecognition: Leaving method.");
-		return result;
-		
-	} // end stopRecogition
 	
 	
 	/**
