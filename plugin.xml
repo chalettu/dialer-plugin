@@ -9,9 +9,11 @@
             <clobbers target="cordova.dialNumber" />
         </js-module>
         <platform name="ios">
-             <feature name="DialerPlugin">
+                   <config-file target="config.xml" parent="/*">
+            <feature name="DialerPlugin">
                  <param name="onload" value="true" />
             </feature>
+        </config-file>
         </platform>
          <platform name="android">
         <config-file target="AndroidManifest.xml" parent="/*">
