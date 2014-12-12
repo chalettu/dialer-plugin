@@ -10,7 +10,4 @@ var dialNumber =function(phone_number, successCallback, errorCallback) {
       }]
     );
   }
-
-});
-
         module.exports = dialNumber;
