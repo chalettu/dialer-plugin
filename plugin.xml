@@ -11,7 +11,7 @@
          <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="DialerPlugin" >
-                <param name="android-package" value="net.ninjaenterprises.DialerPlugin"/>
+                <param name="android-package" value="net.ninjaenterprises.dialer.DialerPlugin"/>
             </feature>
         </config-file>
         <source-file src="src/android/DialerPlugin.java" target-dir="src/net/ninjaenterprises/dialer" />
