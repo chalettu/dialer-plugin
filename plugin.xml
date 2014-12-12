@@ -6,7 +6,7 @@
         <license>Apache 2.0</license>
         <keywords>cordova,dialer</keywords>
         <js-module src="www/dialer.js" name="DialerPlugin">
-            <clobbers target="DialerPlugin" />
+            <clobbers target="cordova.dialNumber" />
         </js-module>
          <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
